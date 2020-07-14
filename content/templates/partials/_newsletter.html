@@ -1,0 +1,32 @@
+{% load newsletter_tags %}
+{% load static %}
+
+{% is_subscribed request as subsribed %}
+
+{% if not subsribed %}
+    <section class="app-newsletter-area">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <!-- Newsletter Content -->
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="nl-content mb-80">
+                        <h2>Subscribe to our Newsletter</h2>
+                        <p>Subscribe our newsletter to get notification about new updates, etc...</p>
+                    </div>
+                </div>
+                <!-- Newsletter Form -->
+                <div class="col-12 col-md-6 col-lg-5">
+                    <div class="nl-form mb-80">
+                        <form action="{% url 'newsletter:subscribe' %}" method="post" class="form-newsletter">
+                            {% csrf_token %}
+                            <input type="email" name="email" id="newsletterEmail" placeholder="Your Email" required>
+                            <button type="submit" class="subscribe">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Border Bottom -->
+            <div class="border-line"></div>
+        </div>
+    </section>
+{% endif %}

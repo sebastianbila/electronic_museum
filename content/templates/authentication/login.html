@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row h-100 text-center">
+                <div class="col-12 align-self-end">
+                    <div class="breadcumb--con">
+                        <h1 class="title">Authorization</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <!-- Main Section -->
+    <section class="contact-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Contact Form -->
+                <div class="col-12 col-lg-8">
+                    <div class="app-contact-form">
+                        <div class="contact-heading mb-50">
+                            <h5 class="text-center">Please fill out the form below to login into system.</h5>
+                        </div>
+                        {% include 'partials/_alerts.html' %}
+                        <form method="post"> {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control mb-10" name="username"
+                                               placeholder="Username" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control mb-10" name="password"
+                                               placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 text-right mb-15">
+                                    <ul class="our-link">
+                                        <a class="forgot-password" href="{% url 'password_reset' %}">Forgotten
+                                            Password?</a>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <button class="btn app-btn btn-3 mt-15" style="width: 100%">Log - In</button>
+                                </div>
+                                <div class="col-lg-12 text-center mt-30 mb-30">
+                                    <ul class="our-link">
+                                        <a class="forgot-password" href="{% url 'registration' %}">Need An Account?
+                                            Click here!</a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

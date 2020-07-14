@@ -1,0 +1,32 @@
+{% load static %}
+{% for item in books %}
+    <div class="single-welcome-slide">
+        <!-- Background Curve -->
+        <div class="background-curve">
+            <img src="{% static 'img/core-img/curve-1.png' %}" alt="">
+        </div>
+
+        <!-- Welcome Content -->
+        <div class="welcome-content h-100">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center">
+                    <!-- Welcome Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="welcome-text text-center">
+                            <h3><span class="text-info">{{ item.name|truncatewords:15}}</span></h3>
+                            <h6 class="">{{ item.author|truncatewords:15}}</h6>
+                            <a href="{{ item.get_absolute_url }}" class="btn app-btn btn-2 mt-5"
+                               data-animation="fadeInUp" data-delay="700ms">Read more</a>
+                        </div>
+                    </div>
+                    <!-- Welcome Thumbnail -->
+                    <div class="col-12 col-md-6">
+                        <div class="welcome-thumbnail">
+                            <img src="{{ item.image.url }}" alt="" style="width: 90%"  data-animation="slideInRight" data-delay="400ms">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

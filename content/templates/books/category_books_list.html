@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load news_tags %}
+{% load static %}
+{% block title %}Books Category{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcumb--con">
+                        <h2 class="title">Category Books</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home:index' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li class="breadcrumb-item active">Category Book</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <section class="app-contact-form section-padding-80">
+        <div class="container-fluid">
+            <div class="row text-center justify-content-center">
+                {% for item in category_books %}
+                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item mt-5">
+                        <div class="single-portfolio-slide">
+                            <img src="{{ item.image.url }}" alt="">
+                            <!-- Overlay Effect -->
+                            <div class="overlay-effect">
+                                <h4>{{ item.name }}</h4>
+                            </div>
+                            <!-- View More -->
+                            <div class="view-more-btn">
+                                <a href="{{ item.get_absolute_url }}"><i class="fa fa-link"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h3>There are no books yet</h3>
+                {% endfor %}
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                {% include 'partials/_pagination.html' with page=page_obj %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+{% endblock %}

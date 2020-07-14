@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="museum-slides owl-carousel">
+        {% for item in gallery %}
+            <div class="single-team-slide">
+                <img src="{{ item.image.url }}" alt="">
+                <!-- Overlay Effect -->
+                <div class="overlay-effect">
+                    <h5>{{ item.title }}</h5>
+                </div>
+            </div>
+        {% empty %}
+            <h3 class="text-center">Gallery is empty</h3>
+        {% endfor %}
+    </div>
+</div>

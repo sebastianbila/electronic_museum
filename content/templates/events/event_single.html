@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load event_tags %}
+{% load static %}
+{% block title %}Master Class{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcumb--con">
+                        <h2 class="title">
+                            Master Classes
+                        </h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home:index' %}"><i class="fa fa-home"></i>
+                                    Home</a></li>
+                                <li class="breadcrumb-item" aria-current="page">
+                                    <a href="{% url 'events:home' %}">Master Classes</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ event.title }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <section class="uza-portfolio-single-area section-padding-80">
+        <div class="container">
+            <div class="row justify-content-between align-items-start">
+                <div class="col-12 col-md-8">
+                    <div class="portfolio-details-text text-justify">
+                        <h2>{{ event.title }}</h2>
+                        <p>{{ event.description }}</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 col-lg-3 pt-5">
+                    <div class="portfolio-meta">
+                        <h6><span class="text-info">Date:</span> {{ event.date }}</h6>
+                        <h6><span class="text-info">Author:</span> {{ event.author }}</h6>
+                        <h6><span class="text-info">Location:</span> {{ event.place }}</h6>
+                        <h6>
+                            <span class="text-info">Subscribers:</span>
+                            <span class="total_subs">{% total_subs %}</span>
+                        </h6>
+                    </div>
+                    {% include 'partials/_share.html' %}
+                    <div class="col-12 mt-5">
+                        {% csrf_token %}
+                        <input type="hidden" id="eventID" data-id="{{ event.id }}">
+
+                        <div class="subs-container">
+                            {% if request.user.is_authenticated %}
+                                {% if sub_status %}
+                                    <button class="btn app-btn btn-2 btn-unsubscribe">Unsubscribe</button>
+                                {% else %}
+                                    <button class="btn app-btn btn-3 btn-subscribe">Subscribe</button>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="portfolio-thumbnail mt-30">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+{% endblock %}

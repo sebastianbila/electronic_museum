@@ -1,0 +1,49 @@
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{% url 'home:feedback' %}" method="post" class="form-feedback">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Form -->
+                    <div class="app-contact-form">
+                        <div class="contact-heading mb-50 feedback-status">
+                            <h4 class="text-center">Blank the form to send a feedback.</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input type="text" class="form-control mb-30" name="name" placeholder="Name"
+                                           value="{{ request.user.first_name }}" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input type="email" class="form-control mb-30" name="email" placeholder="Email"
+                                           value="{{ request.user.email }}" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                        <textarea class="form-control" name="message" rows="8" cols="80"
+                                                  placeholder="Message" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn app-btn btn-3" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn app-btn btn-2 send-feedback">Send Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

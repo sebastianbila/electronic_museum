@@ -1,0 +1,83 @@
+<header class="header-area">
+    <!-- Main Header Start -->
+    <div class="main-header-area">
+        <div class="classy-nav-container breakpoint-off">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar justify-content-end" id="appNav">
+
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+
+                <!-- Menu -->
+                <div class="classy-menu">
+
+                    <!-- Menu Close Button -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul id="nav">
+                            <li {% if '/' == request.path %} class="current-item" {% endif %}>
+                                <a href="{% url 'home:index' %}">Home</a>
+                            </li>
+                            <li {% if 'museum' == request.path %} class="current-item" {% endif %}>
+                                <a href="{% url 'museum:home' %}">Museum</a>
+                            </li>
+                            <li {% if 'books' in request.path %} class="current-item" {% endif %}>
+                                <a href="{% url 'books:home' %}">Books</a>
+                            </li>
+                            <li {% if 'news' in request.path %} class="current-item" {% endif %}>
+                                <a href="{% url 'news:news' %}">News</a>
+                            </li>
+                            <li {% if 'events' in request.path %} class="current-item" {% endif %}>
+                                <a href="{% url 'events:home' %}">Master Classes</a>
+                            </li>
+                        </ul>
+
+                        <!-- Feedback -->
+                        <div class="get-a-quote ml-4 mr-3">
+                            <button type="button" class="btn app-btn" data-toggle="modal" data-target="#feedbackModal">
+                                Feedback
+                            </button>
+
+                        </div>
+
+                        {% if request.user.is_authenticated %}
+                            <!-- Login / Register -->
+                            <div class="login-register-btn mx-3">
+                                <a href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                                <form method="post" action="{% url 'logout' %}" id="logout">
+                                    {% csrf_token %}
+                                </form>
+                            </div>
+                        {% else %}
+                            <!-- Login / Register -->
+                            <div class="login-register-btn mx-3">
+                                <a href="{% url 'login' %}">Login <span>/ Register</span></a>
+                            </div>
+                        {% endif %}
+
+                        <!-- Search Icon -->
+                        <div class="search-icon" data-toggle="modal" data-target="#searchModal">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Modal Search -->
+{% include 'partials/_modal_search.html' %}
+
+<!-- Modal Search -->
+{% include 'partials/_modal_feedback.html' %}
+
+<!-- Comments -->
+{% include 'partials/_modal_comments.html' %}

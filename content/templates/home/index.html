@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load home_tags %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="welcome-area">
+        <div class="welcome-slides owl-carousel">
+            {% show_latest_books %}
+        </div>
+    </section>
+
+
+    <section class="app-services-area section-padding-80-0 mt-150">
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Latest Master Classes</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest Master Classes -->
+            {% show_latest_events %}
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="app-portfolio-area section-padding-80">
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Our Museum and Gallery</h2>
+                        <p>We stay on top of our industry by being experts in yours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid p-5">
+            {% show_latest_gallery %}
+        </div>
+
+        <!-- Border -->
+        <div class="container mt-5">
+            <div class="border-line"></div>
+        </div>
+
+        <!-- Background Curve -->
+        <div class="portfolio-bg-curve">
+            <img src="{% static 'img/core-img/curve-5.png' %}" alt="">
+        </div>
+    </section>
+
+    <section class="app-blog-area mb-80">
+        <!-- Background Curve -->
+        <div class="blog-bg-curve">
+            <img src="{% static 'img/core-img/curve-3.png' %}" alt="">
+        </div>
+
+        <div class="app-cta-area section-padding-0-80">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="cta-content mb-80">
+                            <h2>Interested in a book or museum?</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="cta-content mb-80">
+                            <div class="call-now-btn">
+                                <a href="#"><span>Call us now:</span> (+65) 1234 5678</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading text-center">
+                        <h2>Our Latest News</h2>
+                        <p>Read only the latest news!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Latest news -->
+            {% show_latest_news %}
+        </div>
+    </section>
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+{% endblock %}

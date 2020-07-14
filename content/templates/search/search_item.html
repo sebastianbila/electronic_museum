@@ -1,0 +1,20 @@
+{% load home_tags %}
+<div class="col-12 col-lg-4 mt-3">
+    <div class="single-blog-post bg-img">
+        <!-- Post Content -->
+        <div class="post-content">
+            {% with obj|class_name as obj_class %}
+                    {% if obj_class == 'Book' %}
+                        <span class="text-book">{{ obj|class_name }}</span>
+                    {% elif obj_class == 'News' %}
+                        <span class="text-news">Master Classes</span>
+                    {% elif obj_class == 'Event' %}
+                        <span class="text-event">{{ obj|class_name }}</span>
+                    {% elif obj_class == 'Museum' %}
+                        <span class="text-museum">{{ obj|class_name }}</span>
+                    {% endif %}
+                {% endwith %}
+            <a href="{{ obj.get_absolute_url }}" class="post-title">{{ obj }}</a>
+        </div>
+    </div>
+</div>

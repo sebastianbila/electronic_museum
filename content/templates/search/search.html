@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load home_tags %}
+{% load static %}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+    <div class="breadcrumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcumb--con">
+                        <h2 class="title" style="width: 90%">
+                            Found <span class="text-info"><span
+                                class="counter">{{ founded }}</span> result{{ founded|pluralize }}</span>
+                        </h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home:index' %}"><i class="fa fa-home"></i>
+                                    Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Search</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <div class="container mt-150">
+        <div class="row justify-content-around">
+            <div class="d-flex">
+                <span class="dot bg-book"></span>
+                <p class="ml-2">Book</p>
+            </div>
+            <div class="d-flex"><span class="dot bg-news"></span>
+                <p class="ml-2">News</p></div>
+            <div class="d-flex">
+                <span class="dot bg-event"></span>
+                <p class="ml-2">Master classes</p>
+            </div>
+            <div class="d-flex">
+                <span class="dot bg-museum"></span>
+                <p class="ml-2">Museum</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-contact-form section-padding-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for obj in queryset_list %}
+                    {% search_item obj %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Border -->
+    <div class="container mt-5 mb-80">
+        <div class="border-line"></div>
+    </div>
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load news_tags %}
+{% load social_share %}
+{% load static %}
+{% block title %}News{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcumb--con">
+                        <h2 class="title">News</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home:index' %}"><i class="fa fa-home"></i>
+                                    Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'news:news' %}">News</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ news.title }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <section class="blog-details-area section-padding-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-details-content">
+                        <!-- Post Details Text -->
+                        <div class="post-details-text">
+
+                            <div class="row justify-content-center">
+                                <div class="col-12 text-center">
+                                    {% if news.image %}
+                                        <img class="mb-50" src="{{ news.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 col-lg-10">
+                                    <p class="text-justify">{{ news.description }} </p>
+                                    <hr/>
+                                    <p>{{ news.body|safe }}</p>
+
+                                    <!-- Created Date -->
+                                    <div class="d-flex justify-content-end">
+                                        <p> {{ news.publish.day }} {{ news.publish|date:"F" }}, {{ news.publish.year }}</p>
+                                    </div>
+
+                                    <!-- News Tags & Share -->
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <!-- Post Catagories -->
+                                        <div class="post-catagories">
+                                            <ul class="d-flex flex-wrap align-items-center">
+                                                {% for tag in news.tags.all %}
+                                                    <li>
+                                                        <a href="{% url 'news:news_by_tag' tag.slug %}">{{ tag.name }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+
+                                        {% include 'partials/_share.html' %}
+                                    </div>
+
+                                    <!-- Related News Area -->
+                                    <div class="related-news-area pb-5">
+                                        <h2 class="mb-4">Relatest News</h2>
+                                        <div class="row">
+                                            {% get_latest_news 2 as related_news %}
+                                            {% for item in related_news %}
+                                                <div class="col-12 col-lg-6 col-md-12">
+                                                    <div class="single-blog-post bg-img"
+                                                         style="background-image: url(
+                                                                 {% if item.image %}
+                                                                     {{ item.image.url }}
+                                                                 {% endif %});">
+                                                        <!-- Post Content -->
+                                                        <div class="post-content">
+                                                            <span class="post-date"><span>{{ item.publish.day }}</span>
+                                                                {{ item.publish|date:"F" }}, {{ item.publish.year }}
+                                                            </span>
+                                                            <a href="{{ item.get_absolute_url }}"
+                                                               class="post-title">{{ item.title|truncatewords:12 }}</a>
+                                                            <p>{{ item.description|truncatewords:25 }}</p>
+                                                            <a href="{{ news.get_absolute_url }}" class="read-more-btn">Read
+                                                                More <i
+                                                                        class="arrow_carrot-2right"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                    <!-- Comments Area -->
+                                    <div class="comment_area mb-50 clearfix">
+                                        {% if comments.count > 1 %}
+                                            <!-- Total comments count -->
+                                            {% with comments.count as total_comments %}
+                                                <h5 class="title">
+                                                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                                                </h5>
+                                            {% endwith %}
+                                            <br>
+                                            <ol>
+                                                <!-- List all comments -->
+                                                {% for comment in comments %}
+                                                    {% with forloop.counter as i %}
+                                                        {% if i < 8 %}
+                                                            <!-- Single Comment Area -->
+                                                            <li class="single_comment_area">
+                                                                <!-- Comment Content -->
+                                                                <div class="comment-content d-flex">
+                                                                    <!-- Comment Author -->
+                                                                    <div class="comment-author">
+                                                                        <img src="{% static 'img/user_icon.png' %}"
+                                                                             alt="author">
+                                                                    </div>
+                                                                    <!-- Comment Meta -->
+                                                                    <div class="comment-meta">
+                                                                        <a href="#"
+                                                                           class="post-date">
+                                                                            {{ comment.created|date:'F d, o' }}
+                                                                        </a>
+                                                                        <h5>{{ comment.username }}</h5>
+                                                                        <p>{{ comment.body }}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                {% endfor %}
+                                            </ol>
+                                            {% with comments.count as total_comments %}
+                                                {% if total_comments > 7 %}
+                                                    {% load_comments news.slug news.id %}
+                                                    <h5 class="text-center" data-toggle="modal"
+                                                        data-target="#modalComments">
+                                                        <a href="#">Load more</a>
+                                                    </h5>
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% else %}
+                                            <h5 class="text-center">No comments yet</h5>
+                                        {% endif %}
+                                        </a>
+                                    </div>
+
+                                    <!-- Leave A Reply -->
+                                    {% if request.user.is_authenticated %}
+                                        <!-- Add new comments -->
+                                        <div class="app-contact-form mb-50">
+                                            <h2 class="mb-4">Leave A Comment</h2>
+                                            <!-- Form -->
+                                            <form method="post"> {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                    <textarea name="message" class="form-control mb-30"
+                                                              placeholder="Enter your comment" required></textarea>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn app-btn btn-3 mt-15">Post
+                                                            Comment
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+
+{% endblock %}

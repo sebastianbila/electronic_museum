@@ -1,0 +1,10 @@
+{% load social_share %}
+<div class="portfolio-social-info d-flex align-items-center">
+    <p><span class="text-info">Share:</span></p>
+    {% send_email object.title '' object_or_url '' %}
+    {% post_to_facebook object_or_url '' %}
+    {% post_to_telegram 'New updates. Check it out!' object_or_url '' %}
+    {% post_to_twitter 'New updates. Check it out!' object_or_url '' %}
+    {% post_to_whatsapp object_or_url '' %}
+    {% post_to_gplus object_or_url '' %}
+</div>

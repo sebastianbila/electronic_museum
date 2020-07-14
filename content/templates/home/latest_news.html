@@ -1,0 +1,23 @@
+<div class="row">
+    {% for item in news %}
+        <div class="col-12 col-lg-6 col-md-12">
+            <div class="single-blog-post bg-img"
+                 style="background-image: url(
+                         {% if item.image %}
+                             {{ item.image.url }}
+                         {% endif %});">
+                <!-- Post Content -->
+                <div class="post-content">
+                    <span class="post-date"><span>{{ item.publish.day }}</span>
+                        {{ item.publish|date:"F" }}, {{ item.publish.year }}
+                    </span>
+                    <a href="{{ item.get_absolute_url }}"
+                       class="post-title">{{ item.title|truncatewords:12 }}</a>
+                    <p>{{ item.description|truncatewords:25 }}</p>
+                    <a href="{{ item.get_absolute_url }}" class="read-more-btn">
+                        Read More <i class="arrow_carrot-2right"></i></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

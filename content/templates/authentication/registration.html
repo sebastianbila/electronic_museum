@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row h-100 text-center">
+                <div class="col-12 align-self-end">
+                    <div class="breadcumb--con">
+                        <h2 class="title">Registration</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <!-- Main Section -->
+    <section class="contact-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Contact Form -->
+                <div class="col-12 col-lg-8">
+                    <div class="app-contact-form">
+                        <div class="contact-heading mb-50">
+                            <h5 class="text-center">Please fill out the form below to register a new account.</h5>
+                        </div>
+                        {% include 'partials/_alerts.html' %}
+                        <form action="{% url 'registration' %}" method="post" class="form-registration"> {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control mb-10" name="full-name" placeholder="Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control mb-10" name="username" placeholder="Username" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control mb-10" name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control mb-10" minlength="6"
+                                               name="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control mb-10" name="confirm-password"
+                                               placeholder="Confirm password" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn app-btn btn-3 mt-15" id="btnRegister"
+                                            style="width: 100%">
+                                        Register Account
+                                    </button>
+                                </div>
+                                <div class="col-lg-12 text-center mt-30 mb-30">
+                                    <ul class="our-link">
+                                        <a class="forgot-password" href="{% url 'login' %}">Already have an account? Log in!</a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

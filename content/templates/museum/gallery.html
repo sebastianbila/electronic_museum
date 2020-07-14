@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load news_tags %}
+{% load static %}
+{% block title %}Museum Gallery{% endblock %}
+
+{% block content %}
+
+    <div class="breadcrumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-end">
+                <div class="col-12">
+                    <div class="breadcumb--con">
+                        <h2 class="title">Museum Gallery</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'home:index' %}"><i class="fa fa-home"></i> Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'museum:home' %}">Museum</a></li>
+                                <li class="breadcrumb-item active">{{ museum.title }}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'partials/_bg_curve.html' %}
+    </div>
+
+    <section class="app-contact-form section-padding-80">
+        <div class="container-fluid p-5">
+            <div class="row">
+                <!-- Team Member Slides -->
+                <div class="museum-slides owl-carousel">
+                    {% for item in gallery %}
+                        <div class="single-team-slide">
+                            <img src="{{ item.image.url }}" alt="">
+                            <!-- Overlay Effect -->
+                            <div class="overlay-effect">
+                                <h5>{{ item.title }}</h5>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <h3 class="text-center">Gallery is empty</h3>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Border -->
+        <div class="container">
+            <div class="border-line mt-80"></div>
+        </div>
+    </section>
+
+    <!-- Subscribe to newsletter -->
+    {% include 'partials/_newsletter.html' %}
+
+    <!-- Footer -->
+    {% include 'partials/_footer.html' %}
+{% endblock %}
