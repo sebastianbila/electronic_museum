@@ -1,2 +1,2 @@
-# electronic_museum
+# Electronic Museum
 Website for electronic museum with books, gallery and etc...
